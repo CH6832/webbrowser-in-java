@@ -1,5 +1,7 @@
 # JavaFX Browser Project
 
+## :newspaper: About the project
+
 This project is a simple web browser application built using JavaFX. It allows users to browse the web, open multiple tabs, navigate backward and forward, refresh pages, and enter URLs to visit specific websites.
 
 ## Features
@@ -9,12 +11,6 @@ This project is a simple web browser application built using JavaFX. It allows u
 * Navigation Controls: Navigate backward and forward in the browsing history.
 * Refresh: Reload the current web page.
 * Website Name as Tab Title: Display the name of the website as the title of the tab.
-
-## Technologies used
-
-* Java
-* JavaFX
-* Scene Builder
 
 ## Getting Started
 
@@ -36,6 +32,27 @@ git clone https://github.com/your-username/browser-project.git
 * Use the navigation buttons (Back, Forward, Refresh) to control navigation.
 * Close a tab by clicking the close button (X) on the tab.
 
-# License
+## :books: Resources used to create this project
 
-This project is licensed under the [MIT License](LICENSE).
+* Java
+    * [Java Platform Standard Edition 22 Documentation](https://docs.oracle.com/en/java/javase/)
+    * [JavaFX 17](https://openjfx.io/)
+* Markdwon
+    * [Basic syntax](https://www.markdownguide.org/basic-syntax/)
+    * [Complete list of github markdown emofis](https://dev.to/nikolab/complete-list-of-github-markdown-emoji-markup-5aia)
+    * [Awesome template](http://github.com/Human-Activity-Recognition/blob/main/README.md)
+    * [.gitignore file](https://git-scm.com/docs/gitignore)
+* Editor
+    * [IntelliJ IDEA Community Edition](https://www.jetbrains.com/idea/download/?section=windows)
+
+## :bookmark: License
+
+This project is licensed under the terms of the [MIT License](LICENSE).
+
+## COPYRIGHT
+
+See the [COPYRIGHT](COPYRIGHT) file for copyright and licensing details.
+
+## Code of Conduct
+
+Please review our [Code of Conduct](CODE_OF_CONDUCT.md) before contributing to this project.
