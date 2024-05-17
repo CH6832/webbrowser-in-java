@@ -10,7 +10,7 @@
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.TextField?>
 <BorderPane xmlns="http://javafx.com/javafx/15.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.christoph.webbrowserinjava.BrowserController">
-    <top>
+    <!-- <top>
         <MenuBar>
             <Menu text="File"/>
             <Menu text="Edit"/>
@@ -18,15 +18,16 @@
             <Menu text="History"/>
             <Menu text="Bookmarks"/>
         </MenuBar>
-    </top>
+    </top> -->
     <center>
         <BorderPane>
             <top>
                 <ToolBar>
                     <!-- Navigation buttons -->
-                    <Button text="Back" onAction="#navigateBack"/>
-                    <Button text="Forward" onAction="#navigateForward"/>
-                    <Button text="Refresh" onAction="#refreshPage"/>
+                    <Button text="&#9664;" onAction="#navigateBack" styleClass="buttonForwardBackward"/>
+                    <Button text="&#9654;" onAction="#navigateForward" styleClass="buttonForwardBackward"/>
+                    <Button text="&#x21BB;" onAction="#refreshPage" styleClass="buttonRefresh"/>
+
                     <!-- Address bar -->
                     <TextField fx:id="addressBar" promptText="Address"/>
                     <!-- Search bar -->

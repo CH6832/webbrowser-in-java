@@ -14,7 +14,9 @@ public class BrowserApplication extends Application {
     public void start(Stage primaryStage) throws Exception {
         Parent root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("/com/christoph/webbrowserinjava/browser-view.fxml")));
         primaryStage.setTitle("JavaFX Browser");
-        primaryStage.setScene(new Scene(root, 800, 600));
+        Scene scene = new Scene(root, 800, 600);
+        scene.getStylesheets().add(Objects.requireNonNull(getClass().getResource("/com/christoph/webbrowserinjava/browser-view.css")).toExternalForm());
+        primaryStage.setScene(scene);
         primaryStage.show();
     }
 

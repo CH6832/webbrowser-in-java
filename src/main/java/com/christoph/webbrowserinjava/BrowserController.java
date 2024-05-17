@@ -1,16 +1,18 @@
 package com.christoph.webbrowserinjava;
 
-import javafx.event.ActionEvent;
+import javafx.concurrent.Worker;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Tab;
 import javafx.scene.control.TabPane;
 import javafx.scene.control.TextField;
+import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyEvent;
 import javafx.scene.web.WebEngine;
 import javafx.scene.web.WebView;
-
-import java.net.MalformedURLException;
 import java.net.URI;
-import java.net.URL;
+import java.net.URISyntaxException;
 
 public class BrowserController {
 
@@ -21,65 +23,103 @@ public class BrowserController {
     private TextField addressBar;
 
     @FXML
+    private void addNewTab(String url) {
+        WebView webView = new WebView();
+        WebEngine webEngine = webView.getEngine();
+        webEngine.getLoadWorker().stateProperty().addListener((observable, oldValue, newValue) -> {
+            if (newValue == Worker.State.FAILED) {
+                showErrorDialog("Failed to load page", "The URL you entered could not be loaded.");
+            }
+        });
+
+        String websiteName = extractWebsiteName(url);
+        Tab newTab = new Tab(websiteName);
+        newTab.setContent(webView);
+        tabPane.getTabs().add(newTab);
+        webEngine.load(url);
+    }
+
+    @FXML
     private void initialize() {
+
+        // Add listener to close tabs with Ctrl + W
+        tabPane.setOnKeyPressed(new EventHandler<KeyEvent>() {
+            @Override
+            public void handle(KeyEvent event) {
+                if (event.isControlDown() && event.getCode() == KeyCode.W) {
+                    Tab selectedTab = tabPane.getSelectionModel().getSelectedItem();
+                    if (selectedTab != null) {
+                        tabPane.getTabs().remove(selectedTab);
+                    }
+                }
+            }
+        });
+
         // Add an initial tab when the application starts
         addNewTab("https://www.google.com");
 
         // Add listener to the address bar to handle URL changes
         addressBar.setOnAction(event -> openUrlInNewTab(addressBar.getText()));
+
     }
 
     @FXML
-    private void addNewTab(String url) {
-        // Create a new tab with the title set to the website name
-        Tab newTab = new Tab();
-        WebView webView = new WebView();
-        WebEngine webEngine = webView.getEngine();
-
-        // Parse the URL to extract the website name
-        String websiteName = extractWebsiteName(url);
-        newTab.setText(websiteName);
-
-        // Add the WebView to the tab content
-        newTab.setContent(webView);
-
-        // Add the new tab to the tab pane
-        tabPane.getTabs().add(newTab);
-
-        // Load the specified URL into the WebView
-        webEngine.load(url);
+    private void showErrorDialog(String title, String message) {
+        Alert alert = new Alert(Alert.AlertType.ERROR);
+        alert.setTitle(title);
+        alert.setHeaderText(null);
+        alert.setContentText(message);
+        alert.showAndWait();
     }
 
     @FXML
     private void addNewTabWithDefaultUrl() {
-        addNewTab("https://www.example.com"); // or any other default URL you prefer
+        addNewTab("https://www.google.com"); // or any other default URL you prefer
     }
 
+    @FXML
     private String extractWebsiteName(String url) {
-        // Remove protocol (http:// or https://) from the URL
-        String domain = url.replaceAll("^(http://|https://)", "");
-
-        // Get the hostname from the URL
-
-        // Return the hostname
-        return URI.create(domain).getHost();
+        try {
+            URI uri = new URI(url);
+            String domain = uri.getHost();
+            if (domain != null) {
+                return domain.startsWith("www.") ? domain.substring(4) : domain;
+            }
+        } catch (URISyntaxException e) {
+            e.printStackTrace();
+        }
+        return "New Tab";
     }
 
     @FXML
     private void openUrlInNewTab(String url) {
-        // Create a new tab
-        Tab newTab = new Tab("New Tab");
+        // Use auto-completion to suggest completing the URL
+        String completedUrl = URLAutoComplete.suggestCompletion(url);
+
+        // Create a new WebView and WebEngine
         WebView webView = new WebView();
         WebEngine webEngine = webView.getEngine();
 
-        // Add the WebView to the tab content
+        // Add a listener to handle page load errors
+        webEngine.getLoadWorker().stateProperty().addListener((observable, oldValue, newValue) -> {
+            if (newValue == Worker.State.FAILED) {
+                showErrorDialog("Failed to load page", "The URL you entered could not be loaded.");
+            }
+        });
+
+        // Create a new tab and set its content to the WebView
+        Tab newTab = new Tab();
         newTab.setContent(webView);
+
+        // Set the title of the tab to the website name
+        String websiteName = extractWebsiteName(completedUrl);
+        newTab.setText(websiteName);
 
         // Add the new tab to the tab pane
         tabPane.getTabs().add(newTab);
 
-        // Load the specified URL into the WebView
-        webEngine.load(url);
+        // Load the completed URL into the WebView
+        webEngine.load(completedUrl);
     }
 
     @FXML

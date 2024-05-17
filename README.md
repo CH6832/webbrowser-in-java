@@ -6,11 +6,15 @@ This project is a simple web browser application built using JavaFX. It allows u
 
 ## Features
 
-* Tabbed Browsing: Open multiple tabs to browse multiple websites simultaneously.
-* Address Bar: Enter URLs in the address bar to navigate to specific websites.
-* Navigation Controls: Navigate backward and forward in the browsing history.
-* Refresh: Reload the current web page.
-* Website Name as Tab Title: Display the name of the website as the title of the tab.
+Certainly! Here's the updated feature section with the implementations:
+
+## Features
+
+* Implemented tabbed browsing functionality allowing users to open multiple tabs to browse multiple websites simultaneously.
+* Included an address bar where users can enter URLs to navigate to specific websites. Implemented auto-completion to suggest completing the entered URLs with common prefixes and domain extensions.
+* Implemented navigation controls to enable users to navigate backward and forward in the browsing history.
+* Added a refresh feature allowing users to reload the current web page.
+* Implemented functionality to display the name of the website as the title of the tab, enhancing user navigation and organization.
 
 ## Getting Started
 

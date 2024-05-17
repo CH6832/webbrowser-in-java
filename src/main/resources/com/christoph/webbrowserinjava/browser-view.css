@@ -1,0 +1,41 @@
+.buttonRefresh {
+    -fx-background-color: orange; /* Orange background */
+    -fx-text-fill: white; /* White text color */
+    -fx-padding: 8px; /* Reduced padding */
+    -fx-border-radius: 8px; /* Rounded corners */
+    -fx-cursor: hand; /* Cursor style */
+    -fx-font-size: 14; /* Hide text */
+}
+
+.buttonRefresh:hover {
+    -fx-background-color: #ff8c00; /* Darker orange on hover */
+}
+
+.buttonRefresh:disabled {
+    -fx-opacity: 0.5; /* Reduce opacity when button is disabled */
+}
+
+.buttonRefresh:disabled:hover {
+    -fx-background-color: orange; /* Keep background color on hover when button is disabled */
+}
+
+.buttonForwardBackward {
+    -fx-background-color: lightblue; /* Light blue background */
+    -fx-text-fill: black; /* Black text color */
+    -fx-padding: 8px; /* Reduced padding */
+    -fx-border-radius: 8px; /* Rounded corners */
+    -fx-cursor: hand; /* Cursor style */
+    -fx-font-size: 14; /* Hide text */
+}
+
+.buttonForwardBackward:hover {
+    -fx-background-color: #b3e5fc; /* Lighter blue on hover */
+}
+
+.buttonForwardBackward:disabled {
+    -fx-opacity: 0.5; /* Reduce opacity when button is disabled */
+}
+
+.buttonForwardBackward:disabled:hover {
+    -fx-background-color: lightblue; /* Keep background color on hover when button is disabled */
+}
