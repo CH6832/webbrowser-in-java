@@ -11,10 +11,17 @@ import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.web.WebEngine;
 import javafx.scene.web.WebView;
+import java.io.IOException;
 import java.net.URI;
 import java.net.URISyntaxException;
+import java.util.List;
 
 public class BrowserController {
+
+    private static final List<String> EXTERNAL_BROWSER_URLS = List.of("chatgpt", "gemini", "llama");
+
+    @FXML
+    private TextField searchField;
 
     @FXML
     public TabPane tabPane;
@@ -22,8 +29,60 @@ public class BrowserController {
     @FXML
     private TextField addressBar;
 
+    private void handleKeyPressed(KeyEvent event) {
+        // Check if Ctrl + F is pressed
+        if (event.isControlDown() && event.getCode() == KeyCode.F) {
+            // Show the search field
+            searchField.setVisible(true);
+            searchField.requestFocus();
+        }
+    }
+
+    @FXML
+    private void searchInPage() {
+        WebView webView = (WebView) tabPane.getSelectionModel().getSelectedItem().getContent();
+        WebEngine webEngine = webView.getEngine();
+        String searchText = searchField.getText();
+        webEngine.executeScript("window.find('" + searchText + "')");
+    }
+
+    private boolean shouldOpenInExternalBrowser(String url) {
+        return EXTERNAL_BROWSER_URLS.stream().anyMatch(url::contains);
+    }
+
+    boolean openInExternalBrowser(String url) {
+        String osName = System.getProperty("os.name").toLowerCase();
+        String[] command;
+
+        if (osName.contains("win")) {
+            command = new String[]{"C:\\Program Files\\Mozilla Firefox\\firefox.exe", "-new-tab", url};
+        } else if (osName.contains("nix") || osName.contains("nux")) {
+            command = new String[]{"firefox", "-new-tab", url};
+        } else if (osName.contains("mac")) {
+            command = new String[]{"open", "-a", "Safari", url};
+        } else {
+            showErrorDialog("Unsupported OS", "This feature is not supported on your operating system.");
+            return false;
+        }
+
+        try {
+            new ProcessBuilder(command).start();
+        } catch (IOException e) {
+            showErrorDialog("Error", "Failed to open the URL in the external browser.");
+            e.printStackTrace();
+        }
+        return false;
+    }
+
     @FXML
     private void addNewTab(String url) {
+        String completeUrl = URLAutoComplete.suggestCompletion(url);
+
+        if (shouldOpenInExternalBrowser(completeUrl)) {
+            openInExternalBrowser(completeUrl);
+            return;
+        }
+
         WebView webView = new WebView();
         WebEngine webEngine = webView.getEngine();
         webEngine.getLoadWorker().stateProperty().addListener((observable, oldValue, newValue) -> {
@@ -32,15 +91,25 @@ public class BrowserController {
             }
         });
 
-        String websiteName = extractWebsiteName(url);
+        String websiteName = extractWebsiteName(completeUrl);
         Tab newTab = new Tab(websiteName);
         newTab.setContent(webView);
         tabPane.getTabs().add(newTab);
-        webEngine.load(url);
+        webEngine.load(completeUrl);
+    }
+
+    @FXML
+    private void openInFirefox() {
+        String url = addressBar.getText();
+        String completeUrl = URLAutoComplete.suggestCompletion(url);
+        openInExternalBrowser(completeUrl);
     }
 
     @FXML
     private void initialize() {
+
+        // Add key pressed event handler to the root node
+        tabPane.addEventFilter(KeyEvent.KEY_PRESSED, this::handleKeyPressed);
 
         // Add listener to close tabs with Ctrl + W
         tabPane.setOnKeyPressed(new EventHandler<KeyEvent>() {

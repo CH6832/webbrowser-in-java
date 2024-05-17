@@ -2,39 +2,40 @@
 
 ## :newspaper: About the project
 
-This project is a simple web browser application built using JavaFX. It allows users to browse the web, open multiple tabs, navigate backward and forward, refresh pages, and enter URLs to visit specific websites.
+This project is a simple yet powerful web browser application built using JavaFX. It offers a seamless browsing experience, allowing users to browse the web effortlessly, open multiple tabs for simultaneous browsing, navigate backward and forward with ease, refresh pages instantly to ensure the latest content, and enter URLs directly to visit specific websites. I use this browser daily, and it has significantly improved my web browsing efficiency and convenience. Whether you're a developer looking for a customizable browser or someone seeking a straightforward and effective web browsing tool, this project is designed to meet your needs.
 
 ## Features
 
-Certainly! Here's the updated feature section with the implementations:
-
-## Features
-
-* Implemented tabbed browsing functionality allowing users to open multiple tabs to browse multiple websites simultaneously.
-* Included an address bar where users can enter URLs to navigate to specific websites. Implemented auto-completion to suggest completing the entered URLs with common prefixes and domain extensions.
-* Implemented navigation controls to enable users to navigate backward and forward in the browsing history.
-* Added a refresh feature allowing users to reload the current web page.
-* Implemented functionality to display the name of the website as the title of the tab, enhancing user navigation and organization.
+* **Seamless Tabbed Browsing:** Effortlessly open multiple tabs to navigate across various websites at once, providing a streamlined and efficient browsing experience.
+* **Smart Address Bar:** Enter website URLs with ease using our intelligent address bar that auto-completes URLs with common prefixes and domain extensions, getting you to your destination faster.
+* **Intuitive Navigation Controls:** Glide through your browsing history with our smooth forward and backward navigation buttons, making it easy to revisit your favorite sites.
+* **Instant Refresh:** Reload your current webpage with a single click to ensure you're always viewing the latest content.
+* **Dynamic Tab Titles:** Enjoy a clutter-free browsing experience with tab titles that automatically display the name of the website, making it simple to manage multiple tabs.
+* **Quick In-Page Search:** Instantly jump to the search bar by pressing Ctrl + F, allowing you to find specific content on a webpage quickly and efficiently.
+* **External Browser Support:** Open websites in your preferred external web browser directly from our app, giving you the flexibility to choose your browsing environment.
+* **Hotkey for Tab Management:** Use the convenient Ctrl + W hotkey to close tabs instantly, enhancing your browsing productivity.
 
 ## Getting Started
 
 1. Clone this repository to your local machine.
 
 ```sh
-git clone https://github.com/your-username/browser-project.git
+git clone https://github.com/CH6832/webbrowser-in-java.git
 ```
 
 2. Open the project in your preferred IDE (e.g., IntelliJ IDEA, Eclipse).
 
-3. Run the BrowserApplication class to start the application.
+3. Run the `BrowserApplication` class to start the application:
+
+<img src="src/main/resources/img/java-webbrowser.png" alt="Java Web Browser" width="1000" height="600">
 
 ## Usage
 
-* Upon launching the application, a new tab will be opened with a default web page (e.g., Google).
-* To open a new tab, click the "+" button or press Ctrl + T.
-* Enter a URL in the address bar and press Enter to navigate to the specified website.
-* Use the navigation buttons (Back, Forward, Refresh) to control navigation.
-* Close a tab by clicking the close button (X) on the tab.
+1) Upon launching the application, a new tab will be opened with a default web page (e.g., Google).
+2) To open a new tab, click the "+" button.
+3) Enter a URL in the address bar and press Enter to navigate to the specified website.
+4) Use the navigation buttons (Back, Forward, Refresh) to control navigation.
+5) Close a tab by clicking the close button (X) on the tab.
 
 ## :books: Resources used to create this project
 

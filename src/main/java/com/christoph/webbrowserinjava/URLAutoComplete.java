@@ -47,16 +47,18 @@ public class URLAutoComplete {
     }
 
     // Method to add "www." prefix to the URL
-    private static String addWwwPrefix(String url) {
-        // Check if the URL contains a domain name (e.g., "facebook.com")
-        int index = url.lastIndexOf(".");
-        if (index > 0 && index < url.length() - 1) {
-            // Insert "www." before the domain name
-            return url.substring(0, index) + ".www" + url.substring(index);
-        } else {
-            // No domain name found, just append "www."
-            return url + ".www";
+    static String addWwwPrefix(String url) {
+        // Split the URL into protocol and the rest of the URL
+        int protocolEndIndex = url.indexOf("://") + 3;
+        String protocol = url.substring(0, protocolEndIndex);
+        String restOfUrl = url.substring(protocolEndIndex);
+
+        // Check if "www." is already present
+        if (!restOfUrl.startsWith("www.")) {
+            restOfUrl = "www." + restOfUrl;
         }
+
+        return protocol + restOfUrl;
     }
 }
 
